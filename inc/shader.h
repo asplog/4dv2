@@ -36,6 +36,7 @@ extern unsigned int shader_perspective;
 extern unsigned int shader_modelview;
 extern unsigned int shader_reshape;
 
+extern unsigned int shader_fog_level;
 extern unsigned int shader_light_position;
 extern unsigned int shader_camera_position;
 

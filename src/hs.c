@@ -42,6 +42,7 @@ int hs_init(hs_t*self,unsigned int name,short w,short h,int dump)
 	self->view[2]=0.8;
 	self->view[3]=0.8;
 
+	self->fog=0.5f;
 	self->lines.width=2.4;
 	
 	self->lines.ambient[0]=0.5;
@@ -218,6 +219,7 @@ int hs_draw(hs_t*self,int dump)
 	(self->flag&hs_BLEND_MODE?glEnable:glDisable)(GL_BLEND);
 	glStencilMask(self->name);
 	{
+		glUniform1f(shader_fog_level,self->fog);
 		glUniform4fv(shader_light_position,1,self->light.from);
 		glUniform4fv(shader_camera_position,1,self->camera.from);
 		glUniformMatrix4fv(shader_projection,1,0,*self->proj);

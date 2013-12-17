@@ -144,6 +144,7 @@ int hd_draw(hd_t*self,int dump)
 	(self->flag&hd_BLEND_MODE?glEnable:glDisable)(GL_BLEND);
 	glStencilMask(self->name);
 	{
+		glUniform1f(shader_fog_level,self->fog);
 		glUniform4fv(shader_light_position,1,self->light.from);
 		glUniform4fv(shader_camera_position,1,self->camera.from);
 		glUniformMatrix4fv(shader_projection,1,0,*self->proj);

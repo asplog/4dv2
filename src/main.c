@@ -75,7 +75,8 @@ void init(int dump,const char*vshp,const char*fshp)
 	shader_perspective=shader_getUniformLoc(&shader,"uPerspective",0);
 	shader_modelview=shader_getUniformLoc(&shader,"uModelview",0);
 	shader_reshape=shader_getUniformLoc(&shader,"uReshape",0);
-	
+
+	shader_fog_level=shader_getUniformLoc(&shader,"uFog",dump);	
 	shader_light_position=shader_getUniformLoc(&shader,"uLight",0);
 	shader_camera_position=shader_getUniformLoc(&shader,"uCamera",0);
 	
@@ -144,8 +145,9 @@ int usage(const char*type)
 	fprintf(stderr,"Usage: 4d\n");
 	if(!type)
 	{
-		fprintf(stderr,"\t%s <NUMBER>: recieve udp for hypersphere via port <NUMBER>\n",_CPORT_);
-		fprintf(stderr,"\t%s <NUMBER>: recieve udp for eeg head via port <NUMBER>\n",_DPORT_);
+		fprintf(stderr,"\t%s <NUMBER>: recieve udp packet for hypersphere via port <NUMBER>\n",_CPORT_);
+		fprintf(stderr,"\t%s <NUMBER>: recieve udp packet for eeg head via port <NUMBER>\n",_DPORT_);
+		fprintf(stderr,"\t%s <NUMBER>: recieve udp packet for emotional via port <NUMBER>\n",_EPORT_);
 		fprintf(stderr,"\t%s <FILE>: eeg positioning dictionary, default: %s\n",_SIGNAL_DICT_,_SIGNAL_DICT_DEFAULT_);
 		fprintf(stderr,"\t%s <STRING>: eeg positioning order, default: %s\n",_SIGNAL_ORDER_,_SIGNAL_ORDER_DEFAULT_);
 		fprintf(stderr,"\t%s <FILE>: load face mesh file, default: %s\n",_FACE_MESH_,_FACE_MESH_DEFAULT_);
@@ -220,9 +222,8 @@ int main(int argc,char**argv)
 		hd_eeg_order(&hd,SIGNAL_ORDER,dump);
 	
 		hp_init(&hp,3,W,H,dump);
-		//hp_back(&hp,0.0,0.0,0.0,1,dump);
+		hp_back(&hp,0.0,0.0,0.0,1,dump);
 		hp_view(&hp,0.7,0.3,0.3,0.3,dump);
-		hp_view(&hp,0,0,1,1,dump);
 		hp_lookat(&hp, 0, 0, 1.0, 0, 0, 0,0,1,0,dump);
 
 		if(cdrive)sock_gen(cdrive,&hs,hs_handler,dump);

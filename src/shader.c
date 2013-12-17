@@ -94,6 +94,7 @@ int shader_term(shader_t*self,int err)
  unsigned int shader_modelview;
  unsigned int shader_reshape;
 
+ unsigned int shader_fog_level;
  unsigned int shader_light_position;
  unsigned int shader_camera_position;
 

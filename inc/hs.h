@@ -35,6 +35,7 @@ typedef struct
 	float	proj[4][4];
 	float	pers[4][4];
 	short	root[2];
+	float	fog;
 	float	back[4];	
 	float	view[4];	
 	struct

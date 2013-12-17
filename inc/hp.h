@@ -29,6 +29,7 @@ typedef struct
 	unsigned int frame;
 	sprite_t bill,cylinder[3],string,sphere;
 	short	root[2];
+	float	fog;
 	float	back[4];
 	float	view[4];
 	struct
