@@ -421,6 +421,13 @@ int hp_handler(hp_t*self,const char*buffer,unsigned int length,int dump)
 				self->camera.up[0],self->camera.up[1],self->camera.up[2]
 			);
 		}
+		else if(!strcmp(token[1],_SHAPE_))
+		{
+			if(!token[2]);
+			else if(!strcmp(token[2],_SIZE_)&&token[3])self->object[0].scale=atof(token[3]);
+			else if(!strcmp(token[2],_AMBIENT_)&&token[3])parseColor(token+3,self->object[0].ambient);
+			else if(!strcmp(token[2],_DIFFUSE_)&&token[3])parseColor(token+3,self->object[0].diffuse);
+		}
 		else if(!strcmp(token[1],_AXIS_))
 		{
 			if(!token[2]);
