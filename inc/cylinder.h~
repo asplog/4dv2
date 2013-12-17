@@ -1,0 +1,14 @@
+//
+//  poly.h
+//  P4
+//
+//  Created by Kota Nakano on 17/11/13.
+//  Copyright (c) 2013 Kota Nakano. All rights reserved.
+//
+#ifndef P4_cylinderxyz_h
+#define P4_cylinderxyz_h
+#include"sprite.h"
+int sprite_cylinder_init_x(sprite_t*,float,float,float,int,int);
+int sprite_init_cylinder_y(sprite_t*,float,float,float,int,int);
+int sprite_init_cylinder_z(sprite_t*,float,float,float,int,int);
+#endif
