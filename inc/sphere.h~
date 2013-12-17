@@ -1,5 +1,0 @@
-#ifndef P4_sprite_sphere_t
-#define P4_sprite_sphere_t
-int sprite_sphere_init(sprite_t*,int );
-#endif
-

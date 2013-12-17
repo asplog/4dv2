@@ -1,12 +1,12 @@
-CC=clang
-CXX=clang++
+CC=gcc
+CXX=g++
 CFLAGS=-I./inc -I/usr/include/libxml2 -O2 -pipe -march=native
 CXXFLAGS=
 LDFLAGS=
 LIB=-lGL -lglut -lGLEW -lxml2
 
 run: bin/main
-	./bin/main --eport 4092 --verbose
+	./bin/main --verbose
 clean:
 	rm obj/*
 bin/main: obj/bill.o obj/colour.o obj/cylinder.o obj/handler.o obj/hd.o obj/hp.o obj/hs.o obj/lcd.o obj/line.o obj/main.o obj/matrix.o obj/mesh.o obj/poly.o obj/projet.o obj/shader.o obj/sock.o obj/sphere.o obj/sprite.o obj/string.o obj/texture.o obj/vector.o 
