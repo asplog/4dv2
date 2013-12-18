@@ -222,8 +222,8 @@ int main(int argc,char**argv)
 		hd_eeg_order(&hd,SIGNAL_ORDER,dump);
 	
 		hp_init(&hp,3,W,H,dump);
-		hp_back(&hp,0.0,0.0,0.0,1,dump);
-		hp_view(&hp,0.7,0.3,0.3,0.3,dump);
+		hp_back(&hp,0.0,0.0,0.0,1.0,dump);
+		hp_view(&hp,0.3,0.3,0.5,0.5,dump);
 		hp_lookat(&hp, 0, 0, 1.0, 0, 0, 0,0,1,0,dump);
 
 		if(cdrive)sock_gen(cdrive,&hs,hs_handler,dump);

@@ -149,7 +149,7 @@ int hp_draw(hp_t*self,int dump)
 		
 		glStencilMask(0);
 
-		glDisable(GL_BLEND);
+		glEnable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_STENCIL_TEST);
 		glDisable(GL_TEXTURE_2D);
