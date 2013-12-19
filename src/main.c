@@ -189,9 +189,6 @@ int usage(const char*type)
 int main(int argc,char**argv)
 {
 	int dump=0,k;
-	int cdrive=0;
-	int ddrive=0;
-	int edrive=0;
 	int work=1;
 	int W=_WIDTH_DEFAULT_;
 	int H=_HEIGHT_DEFAULT_;
@@ -206,9 +203,9 @@ int main(int argc,char**argv)
 	for(k=1;k<argc;++k)
 	{
 		if(!argv[k]);
-		else if(!strcmp(argv[k],_CPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(cdriver=(int*)realloc(cdriver,sizeof(int)*++cdrivel))+(cdrivel-1)))++k;	
-		else if(!strcmp(argv[k],_DPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(ddriver=(int*)realloc(ddriver,sizeof(int)*++ddrivel))+(ddrivel-1)))++k;	
-		else if(!strcmp(argv[k],_EPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(edriver=(int*)realloc(edriver,sizeof(int)*++edrivel))+(edrivel-1)))++k;	
+		else if(!strcmp(argv[k],_CPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(cdriver=(int*)realloc(cdriver,sizeof(int)*(cdrivel+1)))+(cdrivel)))++k,++cdrivel;
+		else if(!strcmp(argv[k],_DPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(ddriver=(int*)realloc(ddriver,sizeof(int)*(ddrivel+1)))+(ddrivel)))++k,++ddrivel;
+		else if(!strcmp(argv[k],_EPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(edriver=(int*)realloc(edriver,sizeof(int)*(edrivel+1)))+(edrivel)))++k,++edrivel;
 		else if(!strcmp(argv[k],_WIDTH_)&&sscanf(argv[k+1],"%d",&W))++k;
 		else if(!strcmp(argv[k],_HEIGHT_)&&sscanf(argv[k+1],"%d",&H))++k;
 		else if(!strcmp(argv[k],_FPS_)&&sscanf(argv[k+1],"%d",&FPS))++k;

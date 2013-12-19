@@ -189,7 +189,7 @@ int hs_draw(hs_t*self,int dump)
 	{
 		float E[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 	
-		glEnable(GL_BLEND);
+		(self->back[3]?glDisable:glEnable)(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_STENCIL_TEST);
 		glDisable(GL_TEXTURE_2D);

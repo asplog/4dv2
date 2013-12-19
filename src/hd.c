@@ -117,7 +117,7 @@ int hd_draw(hd_t*self,int dump)
 		
 		glStencilMask(0);
 
-		glEnable(GL_BLEND);
+		(self->back[3]?glDisable:glEnable)(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_STENCIL_TEST);
 		glDisable(GL_TEXTURE_2D);
@@ -144,6 +144,7 @@ int hd_draw(hd_t*self,int dump)
 	(self->flag&hd_BLEND_MODE?glEnable:glDisable)(GL_BLEND);
 	glStencilMask(self->name);
 	{
+		glDisable(GL_BLEND);
 		glUniform1f(shader_fog_level,self->fog);
 		glUniform4fv(shader_light_position,1,self->light.from);
 		glUniform4fv(shader_camera_position,1,self->camera.from);
