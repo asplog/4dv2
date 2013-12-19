@@ -274,10 +274,6 @@ int hd_lookat(hd_t*self,float ex,float ey,float ez,float ax,float ay,float az,fl
 	*((mat4_t*)self->pers)=*((mat4_t*)*M);
 	return 0;
 }
-int hd_term(hd_t*self,int dump)
-{
-	return 0;
-}
 int hd_eeg_dict(hd_t*self,const char*file,int dump)
 {
 	unsigned int result=0;

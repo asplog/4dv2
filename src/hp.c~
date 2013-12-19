@@ -477,7 +477,91 @@ int hp_lookat(hp_t*self,float ex,float ey,float ez,float ax,float ay,float az,fl
 	*((mat4_t*)self->pinhole.matrix)=*((mat4_t*)*M);
 	return 0;
 }
-int hp_term(hp_t*self,int dump)
+
+/*
+int hd_light(hd_t*self,float x,float y,float z,int dump)
 {
+	self->light.from[0]=x;
+	self->light.from[1]=y;
+	self->light.from[2]=z;
+	self->light.from[3]=1;
 	return 0;
 }
+int hd_root(hd_t*self,short w,short h,int dump)
+{
+	register int result=0;
+	self->root[0]=w;
+	self->root[1]=h;
+	register float RW=self->root[0]*self->view[2];
+	register float RH=self->root[1]*self->view[3];
+	if(RW==RH)	result+=hd_ortho(self,-rate, rate,-rate, rate,-rate, rate,dump);
+	else if(RW<RH)	result+=hd_ortho(self,-rate*sqrtf(RH/RW), rate*sqrtf(RH/RW),-rate*sqrtf(RW/RH), rate*sqrtf(RW/RH),-rate, rate,dump);
+	else if(RH<RW)	result+=hd_ortho(self,-rate*sqrtf(RW/RH), rate*sqrtf(RW/RH),-rate*sqrtf(RH/RW), rate*sqrtf(RH/RW),-rate, rate,dump);
+	return result;
+}
+int hd_ortho(hd_t*self,float l,float r,float b,float t,float zmin,float zmax,int dump)
+{
+	*(mat4_t*)self->proj=mat4_ortho(l,r,b,t,zmin,zmax);
+	return 0;
+}
+int hd_eeg_dict(hd_t*self,const char*file,int dump)
+{
+	unsigned int result=0;
+	const char mess[]="Invalid data format";
+	const char beg='[';
+	const char end=']';
+	const char del=' ';
+	FILE*fp=fopen(file,"rb");
+	if(fp)
+	{
+		char buff[16384];
+		fread(buff,1,sizeof(buff),fp);
+		{
+			char*token[1024]={0};
+			if(0<string_split_block_unsafe(buff,beg,end,token))
+			{
+				register unsigned int k,K;
+				char*name[256]={0};
+				char*head[256]={0};
+				if(0<string_split_block_unsafe(token[0],beg,end,head))
+				for(k=0,K=(self->eeg.dictLength=string_split_unsafe(head[0],del,name));k<K;++k)
+				{
+					register unsigned int m,M;
+					char*point[256]={0};
+					if(token[k+1])
+					for(m=0,M=string_split_block_unsafe(token[k+1],beg,end,point);m<M;++m)
+					{
+						char*coord[64]={0};
+						if(0<string_split_unsafe(point[m],del,coord))
+						{
+							string_unquote(name[k],self->eeg.dict[k].name);	
+							self->eeg.dict[k].x=coord[0]?atof(coord[0]):0;
+							self->eeg.dict[k].y=coord[1]?atof(coord[1]):0;
+							self->eeg.dict[k].z=coord[2]?atof(coord[2]):0;
+						}
+						else if(dump)write(dump,mess,sizeof(mess));
+					}
+					else if(dump)result+=write(dump,mess,sizeof(mess));
+				}
+				else if(dump)result+=write(dump,mess,sizeof(mess));
+			}
+			else if(dump)result+=write(dump,mess,sizeof(mess));
+		}
+		fclose(fp);
+	}
+	return result;
+}
+int hd_eeg_order(hd_t*self,const char*refs,int dump)
+{
+	register unsigned k,K,m,M;
+	char*buff=strcpy(malloc(strlen(refs)),refs);
+	char*token[256]={0};
+	self->eeg.itemLength=0;
+	for(k=0,K=string_split_unsafe(buff,' ',token);k<K;++k)
+		for(m=0,M=self->eeg.dictLength;m<M;++m)
+			if(!strcmp(token[k],self->eeg.dict[m].name))
+				self->eeg.order[self->eeg.itemLength++]=m;
+	free(buff);
+	return 0;
+}
+*/

@@ -189,10 +189,9 @@ int hs_draw(hs_t*self,int dump)
 	{
 		float E[4][4]={{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 	
-		glEnable(GL_BLEND);
+		gl	
+		glDisable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_STENCIL_TEST);
-		glDisable(GL_TEXTURE_2D);
 		
 		glUniform1i(shader_diffuse_drive,0);
 		glUniform1i(shader_diffuse_image,0);
