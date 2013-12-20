@@ -29,6 +29,7 @@ const char*_FPS_="--fps";
 const int _FPS_DEFAULT_=60;
 const char*_FULLSCREEN_="--fullscreen";
 const char*_VERBOSE_="--verbose";
+const char*_COLOUR_="--colour";
 const char*_HELP_="--help";
 const char*_SIGNAL_DICT_="--dict";
 const char*_SIGNAL_DICT_DEFAULT_="data/electrode_set_standard_cartesian.txt";
@@ -54,6 +55,7 @@ hd_t	*hd;
 int*	edriver;
 int	edrivel;
 hp_t*	hp;
+float	colour[4]={0,0,0,1};
 
 void init(int dump,const char*vshp,const char*fshp)
 {
@@ -117,6 +119,7 @@ void disp()
 {
 	register unsigned int k,K;
 	int dump=0;
+	glClearColor(colour[0],colour[1],colour[2],colour[3]);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 	for(k=0,K=cdrivel;k<K;++k)
 		hs_draw(hs+k,dump);
@@ -168,9 +171,9 @@ int usage(const char*type)
 	fprintf(stderr,"Usage: 4d\n");
 	if(!type)
 	{
-		fprintf(stderr,"\t%s <NUMBER>: recieve udp packet for hypersphere via port <NUMBER>\n",_CPORT_);
-		fprintf(stderr,"\t%s <NUMBER>: recieve udp packet for eeg head via port <NUMBER>\n",_DPORT_);
-		fprintf(stderr,"\t%s <NUMBER>: recieve udp packet for emotional via port <NUMBER>\n",_EPORT_);
+		fprintf(stderr,"\t%s <NUMBER> <NUMBER> ... : recieve udp packet for displaying hypersphere via port <NUMBER>\n",_CPORT_);
+		fprintf(stderr,"\t%s <NUMBER> <NUMBER> ... : recieve udp packet for displaying eeg head via port <NUMBER>\n",_DPORT_);
+		fprintf(stderr,"\t%s <NUMBER> <NUMBER> ... : recieve udp packet for displaying emotional via port <NUMBER>\n",_EPORT_);
 		fprintf(stderr,"\t%s <FILE>: eeg positioning dictionary, default: %s\n",_SIGNAL_DICT_,_SIGNAL_DICT_DEFAULT_);
 		fprintf(stderr,"\t%s <STRING>: eeg positioning order, default: %s\n",_SIGNAL_ORDER_,_SIGNAL_ORDER_DEFAULT_);
 		fprintf(stderr,"\t%s <FILE>: load face mesh file, default: %s\n",_FACE_MESH_,_FACE_MESH_DEFAULT_);
@@ -188,7 +191,7 @@ int usage(const char*type)
 }
 int main(int argc,char**argv)
 {
-	int dump=0,k;
+	int dump=0,k,n;
 	int work=1;
 	int W=_WIDTH_DEFAULT_;
 	int H=_HEIGHT_DEFAULT_;
@@ -206,6 +209,7 @@ int main(int argc,char**argv)
 		else if(!strcmp(argv[k],_CPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(cdriver=(int*)realloc(cdriver,sizeof(int)*(cdrivel+1)))+(cdrivel)))++k,++cdrivel;
 		else if(!strcmp(argv[k],_DPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(ddriver=(int*)realloc(ddriver,sizeof(int)*(ddrivel+1)))+(ddrivel)))++k,++ddrivel;
 		else if(!strcmp(argv[k],_EPORT_))while(argv[k+1]&&sscanf(argv[k+1],"%d",(edriver=(int*)realloc(edriver,sizeof(int)*(edrivel+1)))+(edrivel)))++k,++edrivel;
+		else if(!strcmp(argv[k],_COLOUR_))for(n=0;n<4&&sscanf(argv[k+1],"%f",colour+n);++n)++k;
 		else if(!strcmp(argv[k],_WIDTH_)&&sscanf(argv[k+1],"%d",&W))++k;
 		else if(!strcmp(argv[k],_HEIGHT_)&&sscanf(argv[k+1],"%d",&H))++k;
 		else if(!strcmp(argv[k],_FPS_)&&sscanf(argv[k+1],"%d",&FPS))++k;
